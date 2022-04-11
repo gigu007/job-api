@@ -2,6 +2,9 @@ require('dotenv').config();
 require('express-async-errors');
 const express = require('express');
 const app = express();
+const authRouter =require('./routes/auth');
+const jobsRouter= require('./routes/jobs')
+
 
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
@@ -11,14 +14,13 @@ app.use(express.json());
 // extra packages
 
 // routes
-app.get('/', (req, res) => {
-  res.send('jobs api');
-});
+app.use('/api/v1/auth',authRouter)
+app.use('/api/v1/jobs',jobsRouter)//you can access the routes through /api/v1/createJob or getJob or getAllJobs or updateJob
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 7000;
 
 const start = async () => {
   try {
