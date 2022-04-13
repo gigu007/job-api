@@ -19,7 +19,7 @@ const JobSchema = new mongoose.Schema(
     },
     createdBy: {
       type: mongoose.Types.ObjectId,
-      ref: 'User',
+      ref: 'User',//the module(User)we are referrencing
       required: [true, 'Please provide user'],
     },
   },

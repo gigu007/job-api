@@ -18,7 +18,8 @@ const login = async (req, res) => {
   if (!user) {
     throw new UnauthenticatedError('Invalid Credentials')
   }
-  const isPasswordCorrect = await user.comparePassword(password)
+  //to check if the registered user's password is correct
+  const isPasswordCorrect = await user.comparePassword(password)//the comparePassword is a built-in method in bcrypt used for comparing passwords of a user
   if (!isPasswordCorrect) {
     throw new UnauthenticatedError('Invalid Credentials')
   }
