@@ -2,6 +2,11 @@
 require('dotenv').config();
 require('express-async-errors');
 const express = require('express');
+//extra security packages
+const helmet  = require('helmet')
+const cors = require('cors')
+const xss = require('xss-clean')
+const rateLimiter = require('express-rate-limit')
 const app = express();
 const authenticateUser= require('./middleware/authentication')
 const authRouter =require('./routes/auth');
@@ -16,7 +21,10 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 
 app.use(express.json());
 // extra packages
-
+app.use(helmet())
+app.use(cors())
+app.use(rateLimiter())
+app.use(xss())
 // routes
 app.use('/api/v1/auth',authRouter)
 app.use('/api/v1/jobs',authenticateUser,jobsRouter)//you can access the routes through /api/v1/createJob or getJob or getAllJobs or updateJob
